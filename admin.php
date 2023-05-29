@@ -4,16 +4,30 @@ require_once 'header.php';
 require_once 'security.php';
 ?>
 
-<h2 class="w3-container w3-grey w3-center">Admin Dashboard</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Hier kommen deine CSS-Stile hin */
+        .main-content {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    </style>
+</head>
+<body>i
+<div class="main-content">
+    <h2 class="w3-container w3-grey w3-center">Admin Dashboard</h2>
 
-<div class="w3-container w3-text-white">
-    <p>Welcome <?php echo $_SESSION['username']; ?>,</p>
-</div>
+    <div class="w3-container w3-text-white">
+        <p>Welcome dear <?php echo $_SESSION['username']; ?>,
+We are delighted to have you here in the Admin Dashboard. This is where you have full control over your website, allowing you to manage your posts, categories, and users. Feel free to take the actions you need and customize the website to your liking. If you have any questions or encounter any issues, we are here to assist you. Enjoy your administrative work and may you achieve great success!</p>
+    </div>
 
-<h2 class="w3-container w3-grey w3-center">Blog Posts</h2>
+    <h2 class="w3-container w3-grey w3-center">Blog Posts</h2>
 
-<?php
-$sql = "SELECT COUNT(*) FROM posts";
+    <?php
+$sql = "SELECT * FROM posts";
 $result = mysqli_query($dbcon, $sql);
 $numrows = mysqli_fetch_row($result)[0];
 $rowsperpage = PAGINATION;
@@ -40,9 +54,7 @@ if (mysqli_num_rows($result) < 1) {
         $id = htmlspecialchars($row['id'], ENT_QUOTES);
         $title = htmlspecialchars($row['title'], ENT_QUOTES);
         $time = htmlspecialchars($row['date'], ENT_QUOTES);
-        $slug = htmlspecialchars($row['slug'], ENT_QUOTES);
 
-        $permalink = "p/" . $id . "/" . $slug;
                                                 }
         ?>
 
@@ -169,3 +181,7 @@ if (mysqli_num_rows($userResult) < 1) {
 echo "<p><a href='new_user.php' class='w3-button w3-grey'>Create new user</a></p>";
 
 include("footer.php");
+?>
+</div>
+</body>
+</html>

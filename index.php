@@ -26,16 +26,62 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mein Blog</title>
     <style>
         /* Hier kommen deine CSS-Stile hin */
+        .sidebar {
+            position: fixed;
+            top: 220px;
+            right: 50px;
+            width: 10%;
+            height: auto;
+            padding: 5px;
+            background-color: #ccc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .main-content {
+	    margin-right: 10%;
+            margin-left: 10%;
+        }
     </style>
 </head>
 <body>
-    <h1>Mein Blog</h1>
-
     <!-- Beiträge anzeigen -->
     <?php if ($result->num_rows > 0): ?>
+        <div class="sidebar">
+            <h3>Kategorien</h3>
+            <ul>
+                <?php
+                // Kategorien abrufen
+                $categories_sql = "SELECT * FROM category";
+                $categories_result = mysqli_query($dbcon, $categories_sql);
+
+                while ($category_row = mysqli_fetch_assoc($categories_result)) {
+                    $category_id = $category_row['id'];
+                    $category_name = $category_row['catname'];
+                    $category_permalink = "category.php?id=" . $category_id;
+                    ?>
+                    <li><a href="<?= $category_permalink ?>"><?= $category_name ?></a></li>
+                <?php } ?>
+            </ul>
+        </div>
+
+        <div class="main-content">
         <?php while ($row = $result->fetch_assoc()): ?>
             <?php
             $id = htmlspecialchars($row['id'], ENT_QUOTES);
@@ -55,9 +101,10 @@ $result = $stmt->get_result();
                 <div class="w3-text-grey"><?= $time ?></div>
             </div>
         <?php endwhile; ?>
+        </div>
 
         <p>
-            <div class="w3-bar w3-center">
+        <div class="w3-bar w3-center">
                 <?php if ($page > 1): ?>
                     <a href="?page=1">&laquo;</a>
                     <?php $prevpage = $page - 1; ?>
@@ -89,5 +136,7 @@ $result = $stmt->get_result();
         <div class="w3-panel w3-pale-red w3-card-2 w3-border w3-round">No post yet!</div>
     <?php endif; ?>
 
-    <?php include("categories.php"); ?>
-    <?php include("footer.php");
+    <?php include("footer.php"); ?>
+</body>
+</html>
+

@@ -2,6 +2,20 @@
 require_once 'connect.php';
 require_once 'header.php';
 require_once 'security.php';
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Hier kommen deine CSS-Stile hin */
+        .main-content {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    </style>
+</head>
+<body>
+<?php
 
 $id = (INT)$_GET['id'];
 if ($id < 1) {
@@ -36,7 +50,7 @@ if (isset($_POST['upd'])) {
 }
 ?>
 
-    <div class="w3-container">
+    <div class="w3-container main-content">
     <div class="w3-card-4">
 
         <div class="w3-container w3-grey">

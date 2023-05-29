@@ -1,7 +1,20 @@
 <?php
 require_once 'connect.php';
 require_once 'header.php';
-
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Hier kommen deine CSS-Stile hin */
+        .main-content {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    </style>
+</head>
+<body>
+<?php
 // Überprüfen, ob eine gültige ID übergeben wurde
 $id = (int)$_GET['id'];
 if ($id < 1) {
@@ -31,7 +44,7 @@ $time = $row['date'];
 
 ?>
 
-<div class="w3-container w3-grey w3-card-4">
+<div class="w3-container w3-grey w3-card-4 main-content">
     <h3><?php echo $title; ?></h3>
     <div class="w3-panel w3-leftbar w3-rightbar w3-border w3-light-grey w3-card-4">
         <?php echo $description; ?><br>
